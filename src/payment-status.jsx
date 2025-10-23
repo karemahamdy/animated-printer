@@ -1,5 +1,7 @@
+"use client";
 import React from 'react';
 import { ArrowLeft, Share2, User } from 'lucide-react';
+import { useRouter } from 'next/navigation'
 
 export default function PaymentStatus() {
   const participants = [
@@ -9,7 +11,12 @@ export default function PaymentStatus() {
     { name: 'Hope', paid: false, avatar: 'bg-blue-300' },
     { name: 'Dara', paid: false, avatar: 'bg-purple-400' }
   ];
+  const router = useRouter()
 
+  const handleClick = () => {
+    router.push('/receipt-printer')
+    
+  }
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-xl bg-[#f8f9fc]  shadow-xl overflow-hidden">
@@ -143,7 +150,7 @@ export default function PaymentStatus() {
 
         {/* Pay Now Button */}
         <div className="px-6 pb-6">
-          <button className="w-full bg-gray-800 text-white rounded-xl py-2 font-light text-base hover:bg-gray-800 transition">
+          <button onClick={handleClick} className="w-full bg-gray-800 text-white rounded-xl py-2 font-light text-base hover:bg-gray-800 transition">
             Pay Now
           </button>
         </div>
