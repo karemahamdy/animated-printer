@@ -19,7 +19,7 @@ export default function PaymentStatus() {
   }
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-xl bg-[#f8f9fc]  shadow-xl overflow-hidden">
+      <div className="lg:w-xl bg-[#f8f9fc]  shadow-xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 pb-4 text-black">
           <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full border-2 border-gray-200">

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -12,9 +11,17 @@ export default function ReceiptPrinter() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // Create audio element for printer sound
-    audioRef.current = new Audio('../public/printer-sound.mp3');
+    audioRef.current = new Audio('/printer.mp3');
+    audioRef.current.preload = 'auto';
   }, []);
+  const playPrinterSound = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(err => {
+        console.log('Audio play failed:', err);
+      });
+    }
+  };
 
   const handlePrint = () => {
     if (isPrinting) return;
@@ -22,10 +29,7 @@ export default function ReceiptPrinter() {
     setIsPrinting(true);
     setIsActive(true);
 
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => { });
-    }
+    playPrinterSound();
 
     if (hasPrinted) {
       const newId = Date.now();
@@ -41,15 +45,11 @@ export default function ReceiptPrinter() {
     setTimeout(() => {
       setIsPrinting(false);
       setIsActive(false);
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
     }, 6500);
   };
 
   return (
-    <div className="min-h-[100vh] w-full flex items-center justify-center bg-[#e9e9e9] overflow-hidden">
+    <div className="min-h-[100vh] w-xl flex items-center justify-center bg-[#e9e9e9] overflow-y-hidden">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Pacifico&display=swap');
         
@@ -184,7 +184,7 @@ export default function ReceiptPrinter() {
 
 function Receipt() {
   return (
-    <div className="w-full relative" style={{ fontFamily: 'Geist Mono, monospace' }}>
+    <div className="w-full  relative" style={{ fontFamily: 'Geist Mono, monospace' }}>
       {/* Receipt Paper */}
       <div className="w-full bg-white pt-4 shadow-lg">
         {/* Header */}
